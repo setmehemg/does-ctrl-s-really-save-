@@ -1,0 +1,49 @@
+# Caso queira fazer um novo usuário
+$ useradd --system <nome-user>
+
+# Adicione senhas para ele
+    # Senha padrão linux
+    $ passwd <nome-user>
+    
+    # Senha para o samba
+    $ smbpasswd -a <nome-user>
+
+# Conceda direitos para o user na pasta-destino
+$ chown -hR <nome-user> /Caminho/pasta
+
+# Edite o documento do Samba
+$ nano /etc/samba/smb.conf
+
+# Siga até o fim do arquivo de configuração (.conf) e adicione isso:
+
+"
+[AcessoUnico] 
+path = /Caminho/Pasta
+read only = no
+writeable = yes
+browseable = yes
+printable = no
+valid users = <nome>
+create mask = 0644
+directory mask = 0755
+"
+===Legenda===
+# "[AcessoUnico]" é apenas um Alias para o compartilhamento.
+# "path" é o caminho para qual pasta será compartilhada.
+# "read only" e "writeable" são comandos parecidos, porém aproximam de maneira diferente.
+# "browseable" simboliza a permisão de navegar dentro dessa pasta
+# "printable" é para mostrar como impressora e se pode imprimir os arquivos ali dentro.
+# "valid users" são quais usuarios, dentro do linux, podem ter acesso à essa pasta.
+- por exemplo: como no samba testado era de dominio WORKGROUP, ele puxou apenas os que tinha registro, ou seja, da própria máquina.
+# "create mask" e "directory mask" são os que denominam quais users podem ou não conectar no compartilhamento (limitado pelo valid users)
+=============
+
+# Após salvar, reiniciar o serviço.
+    Modo 1:
+    $ /etc/init.d/samba restart 
+    Modo 2:
+    service smbd restart
+    service nmbd restart
+    Modo 3:
+    systemctl restart smbd
+    systemctl restart nmbd
