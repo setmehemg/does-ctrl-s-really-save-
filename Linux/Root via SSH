@@ -1,0 +1,10 @@
+Acesse de alguma maneira a máquina
+
+# Abra o arquivo de configuração "sshd_config"
+    $ nano /etc/ssh/sshd_config
+
+# Edite a configuração "PermitRootLogin" para YES
+# Salve o arquivo
+
+# Reinicie o serviço ssh
+    $ service ssh restart
