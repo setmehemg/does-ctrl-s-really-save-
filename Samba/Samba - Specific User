@@ -1,18 +1,18 @@
 # Caso queira fazer um novo usuário
-$ useradd --system <nome-user>
+    $ useradd --system <nome-user>
 
 # Adicione senhas para ele
     # Senha padrão linux
-    $ passwd <nome-user>
+        $ passwd <nome-user>
     
     # Senha para o samba
-    $ smbpasswd -a <nome-user>
+        $ smbpasswd -a <nome-user>
 
 # Conceda direitos para o user na pasta-destino
-$ chown -hR <nome-user> /Caminho/pasta
+    $ chown -hR <nome-user> /Caminho/pasta
 
 # Edite o documento do Samba
-$ nano /etc/samba/smb.conf
+    $ nano /etc/samba/smb.conf
 
 # Siga até o fim do arquivo de configuração (.conf) e adicione isso:
 
@@ -40,10 +40,10 @@ directory mask = 0755
 
 # Após salvar, reiniciar o serviço.
     Modo 1:
-    $ /etc/init.d/samba restart 
+        $ /etc/init.d/samba restart 
     Modo 2:
-    service smbd restart
-    service nmbd restart
+        $ service smbd restart
+        $ service nmbd restart
     Modo 3:
-    systemctl restart smbd
-    systemctl restart nmbd
+        $ systemctl restart smbd
+        $ systemctl restart nmbd

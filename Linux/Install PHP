@@ -1,0 +1,27 @@
+# Update system
+    $ apt update
+    ou
+    $ apt -y update
+
+# Instalar dependências
+    $ apt install -y lsb-release ca-certificates apt-transport-https software-properties-common
+
+# Adicionar o pacote do PHP à sua lista de repositório
+    $ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
+
+# Importar a chave de segurança ao repositório
+    $ wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+
+# Update System
+# Instalar o PHP no seu sistema (feito para o PHP8.0)
+    $ apt install php8.0
+
+# Instalar dependências (Opcional)
+    $ apt install php8.0-{mysql,cli,common,imap,ldap,xml,fpm,curl,mbstring,zip}
+
+# Habilitar PHP8.0 como 'Default' no Apache2
+    $ a2enmod proxy_fcgi setenvif
+    $ a2enconf php8.0-fpm
+
+# Reiniciar Apache2 para atualizar as configurações
+    $ systemctl restart apache2
